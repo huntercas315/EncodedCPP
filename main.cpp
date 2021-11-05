@@ -81,9 +81,7 @@ public:
 		return;
 	}
 	
-	void encode(string message){
-		string encodedMessage;
-		
+	void encode(string message, string& encodedMessage){
 		for (int i = 0; i <= message.length(); ++i){
 			if (message[i] == 'a'){
 			encodedMessage += a;
@@ -168,9 +166,7 @@ public:
 		return;
 	}
 	
-	void input(){
-		string message;
-		
+	void input(string& message){
 		cout << "Enter a message to be encoded: ";
 		cin >> message;
 		
@@ -180,9 +176,14 @@ public:
 
 int main() {
 	alphabet basic, encode;
+	string message, encodedMessage;
 	
 	encode.allVariables();
 	
+	encode.input(message);
+	encode.encode(message, encodedMessage);
+	
+	cout << "\nEncoded message is "<<encodedMessage<<endl;
 	
 	return 0;
 }
