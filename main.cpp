@@ -231,22 +231,56 @@ void decode(string encodedMessage, string& message){
 		
 		return;
 	}
+	
+	void inputEncode(string& message, string& encodedMessage){
+		input(message);
+		encode(message, encodedMessage);
+		
+		cout << "\nEncoded message is "<<encodedMessage<<endl;
+	}
+	
+	void decodeFunc(string encodedMessage, string& decodedMessage){
+		decode(encodedMessage, decodedMessage);
+		
+		cout << "\nDecoded message is "<<decodedMessage<<endl;
+	}
+	
+	void inputDecodeFunc(string& decodedMessage){
+		string encodedMessage;
+		
+		cout << "Enter message to be decoded: ";
+		cin >> encodedMessage;
+		
+		decode(encodedMessage, decodedMessage);
+		
+		cout << "\nDecoded message is "<<decodedMessage<<endl;
+		
+		return;
+	}
 };
+
 
 int main() {
 	alphabet basic, encode;
 	string message, encodedMessage, decodedMessage;
-	
+	char encodeDecode = 'i';
 	encode.allVariables();
 	
-	encode.input(message);
-	encode.encode(message, encodedMessage);
-	
-	cout << "\nEncoded message is "<<encodedMessage<<endl;
-	
-	encode.decode(encodedMessage, decodedMessage);
-	
-	cout << "\nDecoded message is "<<decodedMessage<<endl;
+	do {
+		cout << "Would you like to decode or encode? [e/d] ([x] to exit): ";
+		cin >> encodeDecode;
+		while (encodeDecode != 'e' && encodeDecode != 'd' && encodeDecode != 'x'){
+			cout << "\n[e/d] ([x] to exit)\n"<<endl;
+			cout << "Would you like to decode or encode?: ";
+			cin >> encodeDecode;
+		}
+		
+		if (encodeDecode == 'e') {
+			encode.inputEncode(message, encodedMessage);
+		} else if (encodeDecode == 'd') {
+			encode.decodeFunc(encodedMessage, decodedMessage);
+		}
+	} while (encodeDecode != 'x');
 	
 	return 0;
 }
