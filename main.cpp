@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stdio.h>
-#include <string.h>
 #include <vector>
 #include <random>
 
@@ -82,89 +81,149 @@ public:
 	}
 	
 	void encode(string message, string& encodedMessage){
-		for (int i = 0; i <= message.length(); ++i){
-			if (message[i] == 'a'){
-			encodedMessage += a;
-			}
-			else if (message[i] == 'b'){
+		for (int ie = 0; ie <= message.length(); ++ie) {
+			if (message[ie] == 'a') {
+				encodedMessage += a;
+			} else if (message[ie] == 'b') {
 				encodedMessage += b;
-			}
-			else if (message[i] == 'c'){
+			} else if (message[ie] == 'c') {
 				encodedMessage += c;
-			}
-			else if (message[i] == 'd'){
+			} else if (message[ie] == 'd') {
 				encodedMessage += d;
-			}
-			else if (message[i] == 'e'){
+			} else if (message[ie] == 'e') {
 				encodedMessage += e;
-			}
-			else if (message[i] == 'f'){
+			} else if (message[ie] == 'f') {
 				encodedMessage += f;
-			}
-			else if (message[i] == 'g'){
+			} else if (message[ie] == 'g') {
 				encodedMessage += g;
-			}
-			else if (message[i] == 'h'){
+			} else if (message[ie] == 'h') {
 				encodedMessage += h;
-			}
-			else if (message[i] == 'i'){
+			} else if (message[ie] == 'i') {
 				encodedMessage += i;
-			}
-			else if (message[i] == 'j'){
+			} else if (message[ie] == 'j') {
 				encodedMessage += j;
-			}
-			else if (message[i] == 'k'){
+			} else if (message[ie] == 'k') {
 				encodedMessage += k;
-			}
-			else if (message[i] == 'l'){
+			} else if (message[ie] == 'l') {
 				encodedMessage += l;
-			}
-			else if (message[i] == 'm'){
+			} else if (message[ie] == 'm') {
 				encodedMessage += m;
-			}
-			else if (message[i] == 'n'){
+			} else if (message[ie] == 'n') {
 				encodedMessage += n;
-			}
-			else if (message[i] == 'o'){
+			} else if (message[ie] == 'o') {
 				encodedMessage += o;
-			}
-			else if (message[i] == 'p'){
+			} else if (message[ie] == 'p') {
 				encodedMessage += p;
-			}
-			else if (message[i] == 'q'){
+			} else if (message[ie] == 'q') {
 				encodedMessage += q;
-			}
-			else if (message[i] == 'r'){
+			} else if (message[ie] == 'r') {
 				encodedMessage += r;
-			}
-			else if (message[i] == 's'){
+			} else if (message[ie] == 's') {
 				encodedMessage += s;
-			}
-			else if (message[i] == 't'){
+			} else if (message[ie] == 't') {
 				encodedMessage += t;
-			}
-			else if (message[i] == 'u'){
+			} else if (message[ie] == 'u') {
 				encodedMessage += u;
-			}
-			else if (message[i] == 'v'){
+			} else if (message[ie] == 'v') {
 				encodedMessage += v;
-			}
-			else if (message[i] == 'w'){
+			} else if (message[ie] == 'w') {
 				encodedMessage += w;
-			}
-			else if (message[i] == 'x'){
+			} else if (message[ie] == 'x') {
 				encodedMessage += x;
-			}
-			else if (message[i] == 'y'){
+			} else if (message[ie] == 'y') {
 				encodedMessage += y;
-			}
-			else if (message[i] == 'z'){
+			} else if (message[ie] == 'z') {
 				encodedMessage += z;
 			}
 		}
-		
 		return;
 	}
+	
+void decode(string encodedMessage, string& message){
+	for (int ie = 0; ie <= encodedMessage.length(); ++ie) {
+		if (encodedMessage[ie] == 'a') {
+			message += a;
+		}
+		else if (encodedMessage[ie] == b) {
+			message += 'b';
+		}
+		else if (encodedMessage[ie] == c) {
+			message += 'c';
+		}
+		else if (encodedMessage[ie] == d) {
+			message += 'd';
+		}
+		else if (encodedMessage[ie] == e) {
+			message += 'e';
+		}
+		else if (encodedMessage[ie] == f) {
+			message += 'f';
+		}
+		else if (encodedMessage[ie] == g) {
+			message += 'g';
+		}
+		else if (encodedMessage[ie] == h) {
+			message += 'h';
+		}
+		else if (encodedMessage[ie] == i) {
+			message += 'i';
+		}
+		else if (encodedMessage[ie] == j) {
+			message += 'j';
+		}
+		else if (encodedMessage[ie] == k) {
+			message += 'k';
+		}
+		else if (encodedMessage[ie] == l) {
+			message += 'l';
+		}
+		else if (encodedMessage[ie] == m) {
+			message += 'm';
+		}
+		else if (encodedMessage[ie] == n) {
+			message += 'n';
+		}
+		else if (encodedMessage[ie] == o) {
+			message += 'o';
+		}
+		else if (encodedMessage[ie] == p) {
+			message += 'p';
+		}
+		else if (encodedMessage[ie] == q) {
+			message += 'q';
+		}
+		else if (encodedMessage[ie] == r) {
+			message += 'r';
+		}
+		else if (encodedMessage[ie] == s) {
+			message += 's';
+		}
+		else if (encodedMessage[ie] == t) {
+			message += 't';
+		}
+		else if (encodedMessage[ie] == u) {
+			message += 'u';
+		}
+		else if (encodedMessage[ie] == v) {
+			message += 'v';
+		}
+		else if (encodedMessage[ie] == w) {
+			message += 'w';
+		}
+		else if (encodedMessage[ie] == x) {
+			message += 'x';
+		}
+		else if (encodedMessage[ie] == y) {
+			message += 'y';
+		}
+		else if (encodedMessage[ie] == z) {
+			message += 'z';
+		}
+		
+		
+	}
+	return;
+}
 	
 	void input(string& message){
 		cout << "Enter a message to be encoded: ";
@@ -176,7 +235,7 @@ public:
 
 int main() {
 	alphabet basic, encode;
-	string message, encodedMessage;
+	string message, encodedMessage, decodedMessage;
 	
 	encode.allVariables();
 	
@@ -184,6 +243,10 @@ int main() {
 	encode.encode(message, encodedMessage);
 	
 	cout << "\nEncoded message is "<<encodedMessage<<endl;
+	
+	encode.decode(encodedMessage, decodedMessage);
+	
+	cout << "\nDecoded message is "<<decodedMessage<<endl;
 	
 	return 0;
 }
