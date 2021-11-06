@@ -1,5 +1,7 @@
 #include <iostream>
 #include <random>
+#include <fstream>
+#include <unistd.h>
 
 using namespace std;
 
@@ -90,12 +92,23 @@ public:
 	}
 };
 
+void legendDir(){
+	string cwd = get_current_dir_name();
+	cwd.erase(36);
+	cout << cwd << endl;////Temp
+	return;
+}
+
 
 int main() {
 	alphabet encode;
 	string message, encodedMessage, decodedMessage;
 	char encodeDecode = 'i';
 	encode.allVariables();
+	
+	////Temp current working directory finder debug stuff thing thing.
+	//legendDir();
+	//return 0;
 	
 	do {
 		message = "";
