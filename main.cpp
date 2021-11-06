@@ -5,12 +5,13 @@ using namespace std;
 
 class alphabet{
 public:
-	char letters[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-	char legend[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	char baseAlphabet[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	char legend[2][26] = {{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'},
+						  {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}};
 	
 	void allVariables(){
 		for (int i = 0; i <= 25; ++i){
-			randomInator(legend[i]);
+			randomInator(legend[1][i]);
 		}
 		
 		return;
@@ -23,10 +24,10 @@ public:
 		
 		do {
 			randLetter = (randInat() % 26);
-		} while (letters[randLetter] == '#');
+		} while (baseAlphabet[randLetter] == '#');
 		
-		letter = letters[randLetter];
-		letters[randLetter] = '#';
+		letter = baseAlphabet[randLetter];
+		baseAlphabet[randLetter] = '#';
 		
 		return;
 	}
@@ -37,29 +38,29 @@ public:
 				encodedMessage += ' ';
 			}
 			else {
-				encodedMessage += legend[int(message[i]) - 96];
+				encodedMessage += legend[1][int(message[i]) - 96];
 			}
 		}
 		return;
 	}
 	
-void decode(string encodedMessage, string& message){
-	for (int i = 0; i <= encodedMessage.length(); ++i) {
-		if (isspace(encodedMessage[i])){
-			message += ' ';
-		}
-		else {
-			for (int e = 0; e <= 25; ++e){
-				if (encodedMessage[i] == legend[e]){
-					message += letters[e];
-					break;
-				}
+    void decode(string encodedMessage, string& message){
+		for (int i = 0; i <= encodedMessage.length(); ++i) {
+			if (isspace(encodedMessage[i])){
+				message += ' ';
 			}
-			
+			else {
+				for (int e = 0; e <= 25; ++e){
+					if (encodedMessage[i] == legend[1][e]){
+						message += legend[0][e - 1];
+						break;
+					}
+				}
+				
+			}
 		}
-	}
 	return;
-}
+	}
 	
 	void input(string& message){
 		cout << "Enter a message to be encoded: ";
@@ -73,12 +74,6 @@ void decode(string encodedMessage, string& message){
 		encode(message, encodedMessage);
 		
 		cout << "\nEncoded message is "<<encodedMessage<<endl;
-	}
-	
-	void decodeFunc(string encodedMessage, string& decodedMessage){
-		decode(encodedMessage, decodedMessage);
-		
-		cout << "\nDecoded message is "<<decodedMessage<<endl;
 	}
 	
 	void inputDecodeFunc(string& decodedMessage){
