@@ -40,7 +40,7 @@ public:
 				encodedMessage += ' ';
 			}
 			else {
-				encodedMessage += legend[1][int(message[i]) - 96];
+				encodedMessage += legend[1][int(message[i]) - 97];
 			}
 		}
 		return;
@@ -54,7 +54,7 @@ public:
 			else {
 				for (int e = 0; e <= 25; ++e){
 					if (encodedMessage[i] == legend[1][e]){
-						message += legend[0][e - 1];
+						message += legend[0][e]; //- 1];
 						break;
 					}
 				}
@@ -66,7 +66,8 @@ public:
 	
 	void input(string& message){
 		cout << "Enter a message to be encoded: ";
-		cin >> message;
+		cin.ignore();
+		getline(cin, message);
 		
 		return;
 	}
@@ -82,7 +83,8 @@ public:
 		string encodedMessage;
 		
 		cout << "Enter message to be decoded: ";
-		cin >> encodedMessage;
+		cin.ignore();
+		getline(cin, encodedMessage);
 		
 		decode(encodedMessage, decodedMessage);
 		
