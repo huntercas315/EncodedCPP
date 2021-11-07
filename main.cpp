@@ -1,9 +1,11 @@
 #include <iostream>
 #include <random>
-#include <fstream>
+#include <fstream> ///TODO: See if this is needed, may just use JSON instead of text files
 #include <unistd.h>
+#include "json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
 class alphabet{
 public:
@@ -15,14 +17,12 @@ public:
 		for (int i = 0; i <= 25; ++i){
 			randomInator(legend[1][i]);
 		}
-		
-		return;
 	}
 	
 	void randomInator(char& letter){
 		random_device randInat;
 		
-		int randLetter = 0;
+		uint randLetter;
 		
 		do {
 			randLetter = (randInat() % 26);
@@ -30,20 +30,17 @@ public:
 		
 		letter = baseAlphabet[randLetter];
 		baseAlphabet[randLetter] = '#';
-		
-		return;
 	}
 	
-	void encode(string message, string& encodedMessage){
-		for (int i = 0; i < message.length(); ++i) {
-			if (isspace(message[i])){
+	void encode(const string& message, string& encodedMessage){
+		for (char i : message) {
+			if (isspace(i)){
 				encodedMessage += ' ';
 			}
 			else {
-				encodedMessage += legend[1][int(message[i]) - 97];
+				encodedMessage += legend[1][int(i) - 97];
 			}
 		}
-		return;
 	}
 	
     void decode(string encodedMessage, string& message){
@@ -61,15 +58,12 @@ public:
 				
 			}
 		}
-	return;
 	}
 	
-	void input(string& message){
-		cout << "Enter a message to be encoded: ";
+	static void input(string& message){
+		cout << "Enter a message: ";
 		cin.ignore();
 		getline(cin, message);
-		
-		return;
 	}
 	
 	void inputEncode(string& message, string& encodedMessage){
@@ -82,28 +76,34 @@ public:
 	void inputDecodeFunc(string& decodedMessage){
 		string encodedMessage;
 		
-		cout << "Enter message to be decoded: ";
-		cin.ignore();
-		getline(cin, encodedMessage);
+		input(encodedMessage);
 		
 		decode(encodedMessage, decodedMessage);
 		
 		cout << "\nDecoded message is "<<decodedMessage<<endl;
-		
-		return;
 	}
 };
 
 class codeLegendStorage{
 public:
+	char legend[2][26] = {{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'},
+						  {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}};
 	string cwd = get_current_dir_name();
 	string legendName;
+	json legendData;
 	
 	void legendDir(){
 		cwd.erase(36);
 		cwd += "/'Code Legends'";
 		chdir(cwd.c_str());
-		return;
+	}
+	
+	void jsonLegendStorage(){
+		ofstream jsonLegend(cwd + '/' + legendName + ".json");
+		legendData["code"] = legend[1];
+		legendData["alphabet"] = legend[0];
+		
+		jsonLegend << legendData;
 	}
 	
 	void storeLegend(){
@@ -123,21 +123,25 @@ public:
 		cout << "Enter a name for this code: ";
 		cin >> legendName;
 		
-		return;
+		jsonLegendStorage();
 	}
-	
 };
-
 
 int main() {
 	alphabet encode;
 	codeLegendStorage legendStorage;
+	encode.allVariables(); /// Redundant if an old code is selected
+	
+	/// Moves a copy of the legend into the legendStorage class to turn into JSON data
+	for (int i = 0; i <= 26; ++i){
+		legendStorage.legend[1][i] = encode.legend[1][i];
+	}
+	
+	legendStorage.legendDir();
+	legendStorage.storeLegend();
 	string message, encodedMessage, decodedMessage;
 	char encodeDecode = 'i';
-	encode.allVariables(); /// Redundant if a predone code is selected
-	legendStorage.legendDir();
 	
-	legendStorage.storeLegend();
 	
 	do {
 		message = "";
