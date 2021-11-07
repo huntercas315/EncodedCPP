@@ -97,7 +97,10 @@ public:
 void legendDir(){
 	string cwd = get_current_dir_name();
 	cwd.erase(36);
-	cout << cwd << endl;////Temp
+	cwd += "/'Code Legends'";
+	chdir(cwd.c_str());
+	
+	
 	return;
 }
 
@@ -109,8 +112,7 @@ int main() {
 	encode.allVariables();
 	
 	////Temp current working directory finder debug stuff thing thing.
-	//legendDir();
-	//return 0;
+	legendDir();
 	
 	do {
 		message = "";
