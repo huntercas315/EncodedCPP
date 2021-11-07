@@ -94,25 +94,50 @@ public:
 	}
 };
 
-void legendDir(){
+class codeLegendStorage{
+public:
 	string cwd = get_current_dir_name();
-	cwd.erase(36);
-	cwd += "/'Code Legends'";
-	chdir(cwd.c_str());
+	string legendName;
 	
+	void legendDir(){
+		cwd.erase(36);
+		cwd += "/'Code Legends'";
+		chdir(cwd.c_str());
+		return;
+	}
 	
-	return;
-}
+	void storeLegend(){
+		char store;
+		
+		do {
+			cout << "Would you like to store this code?: ";
+			cin >> store;
+		} while (!(store == 'Y' || store == 'y' || store == 'N' || store == 'n'));
+		
+		cout <<endl;
+		
+		if (store == 'N' || store == 'n'){
+			return;
+		}
+		
+		cout << "Enter a name for this code: ";
+		cin >> legendName;
+		
+		return;
+	}
+	
+};
 
 
 int main() {
 	alphabet encode;
+	codeLegendStorage legendStorage;
 	string message, encodedMessage, decodedMessage;
 	char encodeDecode = 'i';
-	encode.allVariables();
+	encode.allVariables(); /// Redundant if a predone code is selected
+	legendStorage.legendDir();
 	
-	////Temp current working directory finder debug stuff thing thing.
-	legendDir();
+	legendStorage.storeLegend();
 	
 	do {
 		message = "";
