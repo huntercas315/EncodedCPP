@@ -2,6 +2,7 @@
 #include <random>
 #include <fstream>
 #include <unistd.h>
+#include <iomanip>
 #include "json.hpp"
 
 using namespace std;
@@ -91,6 +92,46 @@ public:
 	string legendName;
 	json legendData;
 	
+	static bool useOldCode(){
+		char input;
+		
+		do {
+			cout << "Do you have an old code to use? [y/n]: ";
+			cin >> input;
+		} while (!(input == 'Y' || input == 'y' || input == 'N' || input == 'n'));
+		
+		cout << endl;
+		
+		if (input == 'Y' || input == 'y'){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	void reuseOldCode(){
+		string codeName;
+		legendDir();
+		
+		cout << "Enter the name of the code: ";
+		cin >> codeName;
+		
+		ifstream legendStorage(cwd + "/" + codeName + ".json");
+		
+		legendStorage >> legendData;
+		
+		cout << legendData["code"] << endl;
+		
+		int i = 0;
+		for (auto z: legendData["code"].get<string>()){
+			legend[i] = z;
+			++i;
+		}
+		
+		legendStorage.close();
+	}
+	
 	void legendDir(){
 		cwd = get_current_dir_name();
 		cwd.erase(36);
@@ -100,16 +141,16 @@ public:
 	
 	void jsonLegendStorage(){
 		legendDir(); /// Changes Directory to Legend Storage
-		cout << cwd << endl;
 		
 		ofstream jsonFile(cwd + "/" + legendName + ".json");
 		
 		legendData["code"] = legend;
 		
-		jsonFile << legendData << endl;
+		//legendData =
+		
+		jsonFile << setw(4) << legendData << endl;
 		
 		jsonFile.close();
-		cout << "File stored"<<endl;
 	}
 	
 	void storeLegend(){
@@ -128,6 +169,7 @@ public:
 		
 		cout << "Enter a name for this code: "; ///TODO: Later needs to make sure no duplicate names are entered
 		cin >> legendName;
+		cout << endl;
 		
 		jsonLegendStorage();
 	}
@@ -136,14 +178,23 @@ public:
 int main() {
 	alphabet encode;
 	codeLegendStorage legendStorage;
-	encode.allVariables(); /// Redundant if an old code is selected
 	
-	/// Moves a copy of the legend into the legendStorage class to turn into JSON data
-	for (int i = 0; i <= 26; ++i){
-		legendStorage.legend[i] = encode.legend[1][i];
+	if (codeLegendStorage::useOldCode()){
+		legendStorage.reuseOldCode();
+		for (int i = 0; i <= 26; ++i) {
+			encode.legend[1][i] = legendStorage.legend[i];
+		}
 	}
-	
-	legendStorage.storeLegend();
+	else {
+		encode.allVariables(); /// Redundant if an old code is selected
+		
+		/// Moves a copy of the legend into the legendStorage class to turn into JSON data
+		for (int i = 0; i <= 26; ++i) {
+			legendStorage.legend[i] = encode.legend[1][i];
+		}
+		
+		legendStorage.storeLegend();
+	}
 	string message, encodedMessage, decodedMessage;
 	char encodeDecode = 'i';
 	
