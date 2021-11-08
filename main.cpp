@@ -1,6 +1,6 @@
 #include <iostream>
 #include <random>
-#include <fstream> ///TODO: See if this is needed, may just use JSON instead of text files
+#include <fstream>
 #include <unistd.h>
 #include "json.hpp"
 
@@ -86,31 +86,37 @@ public:
 
 class codeLegendStorage{
 public:
-	char legend[2][26] = {{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'},
-						  {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}};
-	string cwd = get_current_dir_name();
+	char legend[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	string cwd;
 	string legendName;
 	json legendData;
 	
 	void legendDir(){
+		cwd = get_current_dir_name();
 		cwd.erase(36);
-		cwd += "/'Code Legends'";
+		cwd += "/CodeLegends";
 		chdir(cwd.c_str());
 	}
 	
 	void jsonLegendStorage(){
-		ofstream jsonLegend(cwd + '/' + legendName + ".json");
-		legendData["code"] = legend[1];
-		legendData["alphabet"] = legend[0];
+		legendDir(); /// Changes Directory to Legend Storage
+		cout << cwd << endl;
 		
-		jsonLegend << legendData;
+		ofstream jsonFile(cwd + "/" + legendName + ".json");
+		
+		legendData["code"] = legend;
+		
+		jsonFile << legendData << endl;
+		
+		jsonFile.close();
+		cout << "File stored"<<endl;
 	}
 	
 	void storeLegend(){
 		char store;
 		
 		do {
-			cout << "Would you like to store this code?: ";
+			cout << "Would you like to store this code? [y/n]: ";
 			cin >> store;
 		} while (!(store == 'Y' || store == 'y' || store == 'N' || store == 'n'));
 		
@@ -120,7 +126,7 @@ public:
 			return;
 		}
 		
-		cout << "Enter a name for this code: ";
+		cout << "Enter a name for this code: "; ///TODO: Later needs to make sure no duplicate names are entered
 		cin >> legendName;
 		
 		jsonLegendStorage();
@@ -134,10 +140,9 @@ int main() {
 	
 	/// Moves a copy of the legend into the legendStorage class to turn into JSON data
 	for (int i = 0; i <= 26; ++i){
-		legendStorage.legend[1][i] = encode.legend[1][i];
+		legendStorage.legend[i] = encode.legend[1][i];
 	}
 	
-	legendStorage.legendDir();
 	legendStorage.storeLegend();
 	string message, encodedMessage, decodedMessage;
 	char encodeDecode = 'i';
