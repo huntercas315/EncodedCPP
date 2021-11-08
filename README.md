@@ -5,3 +5,5 @@ Saving codes has arrived. Create code legends, store, and even reopen previous c
 Cool right.  
 I know right.  
 Super cool.
+
+JSON functionality uses [nholmann/json](https://github.com/nlohmann/json)
