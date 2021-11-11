@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   win: circleci/windows@2.4.1
 jobs:
-  build:
+  build-linux:
     docker:
       - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
         auth:
@@ -18,9 +18,42 @@ jobs:
     steps:
       - checkout
       - run: 'Write-Host ''Hello, Windows'''
+
+  test-macos: # your job name
+    macos:
+      xcode: 11.3.0 # indicate our selected version of Xcode
+    steps: # a series of commands to run
+      - checkout  # pull down code from your version control system.
+      - run:
+          name: Run Unit Tests
+          command: xcodebuild test -scheme circleci-demo-macos
+
+  build-macos: 
+    macos:
+      xcode: 11.3.0 # indicate our selected version of Xcode
+    steps: 
+      - checkout
+      - run:
+          # build our application
+          name: Build Application
+          command: xcodebuild
+      - run:
+          # compress Xcode's build output so that it can be stored as an artifact
+          name: Compress app for storage
+          command: zip -r app.zip build/Release/circleci-demo-macos.app
+      - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
+          path: app.zip
+          destination: app
 workflows:
+  #version: 2
   my-workflow:
     jobs:
-      - build
+      - build-linux
       - build-windows
 
+  test_build:
+    jobs:
+      #- test-macos
+      - build-macos
+        #requires:
+         # test-macos
