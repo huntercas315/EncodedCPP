@@ -85,7 +85,7 @@ public:
 	}
 };
 
-bool osCheck(){ /// TODO: May not be needed with dirent.h header
+bool osCheck(){
 #ifdef _WIN32
 	return true;
 #elif __APPLE__ || __linux__
