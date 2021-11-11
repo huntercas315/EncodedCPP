@@ -132,11 +132,11 @@ public:
 		legendStorage.close();
 	}
 	
-	void legendDir(){
+	void legendDir(){ /// TODO: Replace with a json file storing the file directory path for legend storage /// Can make options page for first start up/first legend save
 		cwd = get_current_dir_name();
 		cwd.erase(36);
 		cwd += "/CodeLegends";
-		chdir(cwd.c_str());
+		chdir(cwd.c_str()); /// Never actually used
 	}
 	
 	void jsonLegendStorage(){
