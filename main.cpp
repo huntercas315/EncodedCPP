@@ -1,8 +1,14 @@
 #include <iostream>
 #include <random>
 #include <fstream>
+#include <unistd.h>
 #include <iomanip>
 #include "json.hpp"
+#ifdef _WIN32 /// TODO: May not be needed
+#include "dirent.h"
+#else
+#include <dirent.h>
+#endif
 
 using namespace std;
 using json = nlohmann::json;
@@ -84,12 +90,22 @@ public:
 	}
 };
 
+bool osCheck(){ /// TODO: May not be needed with dirent.h header
+#ifdef _WIN32
+	return true;
+#elif __APPLE__ || __linux__
+	return false;
+#endif
+}
+
 class codeLegendStorage{
 public:
 	char legend[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	string cwd;
 	string legendName;
 	json legendData;
+	bool weenDOS = osCheck();
+	char slashSeparator = (osCheck()) ? '\\' : '/';
 	
 	static bool useOldCode(){
 		char input;
@@ -132,7 +148,17 @@ public:
 	}
 	
 	void legendDir(){ /// TODO: Replace with a json file storing the file directory path for legend storage /// Can make options page for first start up/first legend save
-		
+		if (weenDOS) { /* C:\Users\ (Username)\Desktop\ */
+			cwd = get_current_dir_name();
+			cwd.erase(36);
+			cwd += "\\CodeLegends";
+		}
+		else { /* /Home/(Username)/Desktop/ */
+			cwd = get_current_dir_name();
+			cwd.erase(36);
+			cwd += "/CodeLegends";
+		}
+		//chdir(cwd.c_str());
 	}
 	
 	void jsonLegendStorage(){
@@ -141,8 +167,6 @@ public:
 		ofstream jsonFile(cwd + "/" + legendName + ".json");
 		
 		legendData["code"] = legend;
-		
-		//legendData =
 		
 		jsonFile << setw(4) << legendData << endl;
 		
@@ -174,7 +198,6 @@ public:
 int main() {
 	alphabet encode;
 	codeLegendStorage legendStorage;
-	
 	if (codeLegendStorage::useOldCode()){
 		legendStorage.reuseOldCode();
 		for (int i = 0; i <= 26; ++i) {
