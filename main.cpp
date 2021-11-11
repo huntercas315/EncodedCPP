@@ -4,11 +4,6 @@
 #include <unistd.h>
 #include <iomanip>
 #include "json.hpp"
-#ifdef _WIN32 /// TODO: May not be needed
-#include "dirent.h"
-#else
-#include <dirent.h>
-#endif
 
 using namespace std;
 using json = nlohmann::json;
@@ -147,7 +142,7 @@ public:
 		legendStorage.close();
 	}
 	
-	void legendDir(){ /// TODO: Replace with a json file storing the file directory path for legend storage /// Can make options page for first start up/first legend save
+	void legendDir(){
 		if (weenDOS) { /* C:\Users\ (Username)\Desktop\ */
 			cwd = get_current_dir_name();
 			cwd.erase(36);
@@ -164,7 +159,7 @@ public:
 	void jsonLegendStorage(){
 		legendDir(); /// Changes Directory to Legend Storage
 		
-		ofstream jsonFile(cwd + "/" + legendName + ".json");
+		ofstream jsonFile(cwd + slash + legendName + ".json");
 		
 		legendData["code"] = legend;
 		
@@ -205,7 +200,7 @@ int main() {
 		}
 	}
 	else {
-		encode.allVariables(); /// Redundant if an old code is selected
+		encode.allVariables();
 		
 		/// Moves a copy of the legend into the legendStorage class to turn into JSON data
 		for (int i = 0; i <= 26; ++i) {
