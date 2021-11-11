@@ -57,7 +57,7 @@ public:
 			else {
 				for (int e = 0; e <= 25; ++e){
 					if (encodedMessage[i] == legend[1][e]){
-						message += legend[0][e]; //- 1];
+						message += legend[0][e];
 						break;
 					}
 				}
@@ -105,7 +105,7 @@ public:
 	string legendName;
 	json legendData;
 	bool weenDOS = osCheck();
-	char slashSeparator = (osCheck()) ? '\\' : '/';
+	char slash = (osCheck()) ? '\\' : '/';
 	
 	static bool useOldCode(){
 		char input;
@@ -132,7 +132,7 @@ public:
 		cout << "Enter the name of the code: ";
 		cin >> codeName;
 		
-		ifstream legendStorage(cwd + "/" + codeName + ".json");
+		ifstream legendStorage(cwd + slash + codeName + ".json");
 		
 		legendStorage >> legendData;
 		
