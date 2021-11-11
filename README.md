@@ -9,3 +9,6 @@ Super cool.
 JSON functionality uses [nholmann/json](https://github.com/nlohmann/json)  
 
 Unfortunately Windows is not currently supported, the program has only been tested inside Clion with Linux. Compatibility *may* be added.
+
+Current CircleCI Status:  
+[![CircleCI](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main.svg?style=svg)](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main)
