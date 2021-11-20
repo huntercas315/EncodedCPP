@@ -1,7 +1,6 @@
 #include <iostream>
 #include <random>
 #include <fstream>
-#include <unistd.h>
 #include <iomanip>
 #include "json.hpp"
 #ifndef _WIN32
@@ -155,7 +154,7 @@ public:
 	void legendDir(){
 		
 		if (weenDOS) { /* C:\Users\ (Username)\Desktop\ */
-			
+			// temporarily disabled to work on filesystems, use main branch until this branch is finished and pulled
 			
 			/*
 			cwd = get_current_dir_name();
