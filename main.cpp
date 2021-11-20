@@ -4,9 +4,16 @@
 #include <unistd.h>
 #include <iomanip>
 #include "json.hpp"
+#ifndef _WIN32
+#include "filesystem/filesystem.hpp"
+#else
+#include "filesystem\filesystem.hpp"
+#endif
+//using namespace boost::filesystem;
 
 using namespace std;
 using json = nlohmann::json;
+namespace fs = boost::filesystem;
 
 class alphabet{
 public:
@@ -88,7 +95,9 @@ public:
 bool osCheck(){
 #ifdef _WIN32
 	return true;
-#elif __APPLE__ || __linux__
+#elif defined (__APPLE__)
+	return false;
+#elif defined (__LINUX__)
 	return false;
 #endif
 }
@@ -101,6 +110,7 @@ public:
 	json legendData;
 	bool weenDOS = osCheck();
 	char slash = (osCheck()) ? '\\' : '/';
+	fs::path storage;
 	
 	static bool useOldCode(){
 		char input;
@@ -143,15 +153,24 @@ public:
 	}
 	
 	void legendDir(){
+		
 		if (weenDOS) { /* C:\Users\ (Username)\Desktop\ */
+			
+			
+			/*
 			cwd = get_current_dir_name();
 			cwd.erase(36);
 			cwd += "\\CodeLegends";
+			 */
 		}
 		else { /* /Home/(Username)/Desktop/ */
+			
+			
+			/*
 			cwd = get_current_dir_name();
 			cwd.erase(36);
 			cwd += "/CodeLegends";
+			 */
 		}
 		//chdir(cwd.c_str());
 	}
