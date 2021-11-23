@@ -92,6 +92,8 @@ bool osCheck(){
 	return false;
 #elif defined (__LINUX__)
 	return false;
+#else
+	return false;
 #endif
 }
 
@@ -124,10 +126,12 @@ public:
 	
 	void reuseOldCode(){
 		string codeName;
-		legendDir();
 		
 		cout << "Enter the name of the code: ";
 		cin >> codeName;
+		
+		json j_array(codeName);
+		
 		
 		ifstream legendStorage(cwd + codeName + ".json");
 		
@@ -155,13 +159,15 @@ public:
 	}
 	
 	void jsonLegendStorage(){
-		legendDir(); /// Sets up Legend Storage Directories
-		
-		ofstream jsonFile(cwd + legendName + ".json");
+		cout << cwd + legendName + ".json" << endl; /// Temp
+		ofstream jsonFile;
+		jsonFile.open(cwd + legendName + ".json");
 		
 		legendData["code"] = legend;
 		
 		jsonFile << setw(4) << legendData << endl;
+		
+		cout << legendData <<endl; /// Temp
 		
 		jsonFile.close();
 	}
@@ -180,7 +186,7 @@ public:
 			return;
 		}
 		
-		cout << "Enter a name for this code: "; ///TODO: Later needs to make sure no duplicate names are entered
+		cout << "Enter a name for this code: "; /// TODO: Later needs to make sure no duplicate names are entered
 		cin >> legendName;
 		cout << endl;
 		
@@ -191,6 +197,7 @@ public:
 int main() {
 	alphabet encode;
 	codeLegendStorage legendStorage;
+	legendStorage.legendDir(); /// Sets up Legend Storage Directories
 	if (codeLegendStorage::useOldCode()){
 		legendStorage.reuseOldCode();
 		for (int i = 0; i <= 26; ++i) {
