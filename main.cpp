@@ -2,17 +2,11 @@
 #include <random>
 #include <fstream>
 #include <iomanip>
-#include "json.hpp"
-#ifndef _WIN32
-#include "filesystem/filesystem.hpp"
-#else
-#include "filesystem\filesystem.hpp"
-#endif
-//using namespace boost::filesystem;
+#include <string>
+#include "headers/json.hpp"
 
 using namespace std;
 using json = nlohmann::json;
-namespace fs = boost::filesystem;
 
 class alphabet{
 public:
@@ -109,7 +103,6 @@ public:
 	json legendData;
 	bool weenDOS = osCheck();
 	char slash = (osCheck()) ? '\\' : '/';
-	fs::path storage;
 	
 	static bool useOldCode(){
 		char input;
@@ -152,9 +145,12 @@ public:
 	}
 	
 	void legendDir(){
-		
 		if (weenDOS) { /* C:\Users\ (Username)\Desktop\ */
 			// temporarily disabled to work on filesystems, use main branch until this branch is finished and pulled
+			cout << "\nNot currently available\n" << endl;
+			cwd = "%userprofile%\\Documents";
+			system("cd %userprofile%\\Documents");
+			system("mkdir CodeLegends");
 			
 			/*
 			cwd = get_current_dir_name();
@@ -163,19 +159,18 @@ public:
 			 */
 		}
 		else { /* /Home/(Username)/Desktop/ */
-			
-			
+			cwd = "~/Documents";
+			system("cd ~/Documents && mkdir CodeLegends");
 			/*
 			cwd = get_current_dir_name();
 			cwd.erase(36);
 			cwd += "/CodeLegends";
 			 */
 		}
-		//chdir(cwd.c_str());
 	}
 	
 	void jsonLegendStorage(){
-		legendDir(); /// Changes Directory to Legend Storage
+		legendDir(); /// Sets up Legend Storage Directories
 		
 		ofstream jsonFile(cwd + slash + legendName + ".json");
 		
