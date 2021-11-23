@@ -129,7 +129,7 @@ public:
 		cout << "Enter the name of the code: ";
 		cin >> codeName;
 		
-		ifstream legendStorage(cwd + slash + codeName + ".json");
+		ifstream legendStorage(cwd + codeName + ".json");
 		
 		legendStorage >> legendData;
 		
@@ -145,34 +145,19 @@ public:
 	}
 	
 	void legendDir(){
-		if (weenDOS) { /* C:\Users\ (Username)\Desktop\ */
-			// temporarily disabled to work on filesystems, use main branch until this branch is finished and pulled
-			cout << "\nNot currently available\n" << endl;
-			cwd = "%userprofile%\\Documents";
-			system("cd %userprofile%\\Documents");
-			system("mkdir CodeLegends");
+		if (weenDOS) {
+			cwd = R"(%userprofile%\Documents\CodeLegends\)";
 			
-			/*
-			cwd = get_current_dir_name();
-			cwd.erase(36);
-			cwd += "\\CodeLegends";
-			 */
 		}
-		else { /* /Home/(Username)/Desktop/ */
-			cwd = "~/Documents";
-			system("cd ~/Documents && mkdir CodeLegends");
-			/*
-			cwd = get_current_dir_name();
-			cwd.erase(36);
-			cwd += "/CodeLegends";
-			 */
+		else {
+			cwd = "~/Documents/CodeLegends/";
 		}
 	}
 	
 	void jsonLegendStorage(){
 		legendDir(); /// Sets up Legend Storage Directories
 		
-		ofstream jsonFile(cwd + slash + legendName + ".json");
+		ofstream jsonFile(cwd + legendName + ".json");
 		
 		legendData["code"] = legend;
 		
