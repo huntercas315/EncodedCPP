@@ -102,9 +102,9 @@ public:
 	char legend[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	string cwd;
 	string legendName;
+	string storagePath;
 	json legendData;
 	bool weenDOS = osCheck();
-	//char slash = (osCheck()) ? '\\' : '/';
 	
 	static bool useOldCode(){
 		char input;
@@ -150,26 +150,31 @@ public:
 			cwd = R"(%userprofile%\Documents\CodeLegends\)";
 		}
 		else {
-			cwd = "~/Documents/CodeLegends/";
+			int count = 0;
+			cwd = "";
+			for (auto z : string(getenv("PATH"))){
+				if (count != 3){
+					cwd += z;
+					if (z == '/'){
+						++count;
+					}
+				}
+			}
+			cwd += "Documents/CodeLegends/";
 		}
 	}
 	
 	void jsonLegendStorage(){
-		/// temp
-		
-		/// temp
-		cout << cwd + legendName + ".json" << endl; /// Temp
-		ofstream jsonFile(cwd + legendName + ".json");//, ios_base::out);
+		storagePath = cwd + legendName + string(".json");
+		fstream jsonFile(storagePath.c_str(), fstream::out | fstream::trunc);
 		
 		if (!(jsonFile.is_open())){
 			cout << "ERROR - File " << legendName << ".json" << " was not created" << endl;
 		}
-			
+		
 		legendData["code"] = legend;
 		
 		jsonFile << setw(4) << legendData << endl;
-			
-		cout << legendData << endl; /// Temp
 			
 		jsonFile.close();
 	}
