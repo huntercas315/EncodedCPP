@@ -134,8 +134,6 @@ public:
 		
 		legendStorage >> legendData;
 		
-		cout << legendData["code"] << endl;
-		
 		int i = 0;
 		for (auto z: legendData["code"].get<string>()){
 			legend[i] = z;
@@ -148,6 +146,7 @@ public:
 	void legendDir(){
 		if (weenDOS) {
 			cwd = R"(%userprofile%\Documents\CodeLegends\)";
+			/// TODO: Confirm if this works on Windows
 		}
 		else {
 			int count = 0;
