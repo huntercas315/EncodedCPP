@@ -88,9 +88,9 @@ public:
 bool osCheck(){
 #ifdef _WIN32
 	return true;
-#elif defined (__APPLE__)
+#elifdef __APPLE__
 	return false;
-#elif defined (__LINUX__)
+#elifdef __LINUX__
 	return false;
 #else
 	return false;
@@ -104,7 +104,7 @@ public:
 	string legendName;
 	json legendData;
 	bool weenDOS = osCheck();
-	char slash = (osCheck()) ? '\\' : '/';
+	//char slash = (osCheck()) ? '\\' : '/';
 	
 	static bool useOldCode(){
 		char input;
@@ -130,9 +130,6 @@ public:
 		cout << "Enter the name of the code: ";
 		cin >> codeName;
 		
-		json j_array(codeName);
-		
-		
 		ifstream legendStorage(cwd + codeName + ".json");
 		
 		legendStorage >> legendData;
@@ -151,7 +148,6 @@ public:
 	void legendDir(){
 		if (weenDOS) {
 			cwd = R"(%userprofile%\Documents\CodeLegends\)";
-			
 		}
 		else {
 			cwd = "~/Documents/CodeLegends/";
@@ -159,16 +155,22 @@ public:
 	}
 	
 	void jsonLegendStorage(){
-		cout << cwd + legendName + ".json" << endl; /// Temp
-		ofstream jsonFile;
-		jsonFile.open(cwd + legendName + ".json");
+		/// temp
 		
+		/// temp
+		cout << cwd + legendName + ".json" << endl; /// Temp
+		ofstream jsonFile(cwd + legendName + ".json");//, ios_base::out);
+		
+		if (!(jsonFile.is_open())){
+			cout << "ERROR - File " << legendName << ".json" << " was not created" << endl;
+		}
+			
 		legendData["code"] = legend;
 		
 		jsonFile << setw(4) << legendData << endl;
-		
-		cout << legendData <<endl; /// Temp
-		
+			
+		cout << legendData << endl; /// Temp
+			
 		jsonFile.close();
 	}
 	
@@ -182,15 +184,13 @@ public:
 		
 		cout <<endl;
 		
-		if (store == 'N' || store == 'n'){
-			return;
+		if (store == 'Y' || store == 'y') {
+			cout << "Enter a name for this code: "; /// TODO: Later needs to make sure no duplicate names are entered
+			cin >> legendName;
+			cout << endl;
+			
+			jsonLegendStorage();
 		}
-		
-		cout << "Enter a name for this code: "; /// TODO: Later needs to make sure no duplicate names are entered
-		cin >> legendName;
-		cout << endl;
-		
-		jsonLegendStorage();
 	}
 };
 
@@ -216,7 +216,6 @@ int main() {
 	}
 	string message, encodedMessage, decodedMessage;
 	char encodeDecode = 'i';
-	
 	
 	do {
 		message = "";
