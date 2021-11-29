@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@2.2.0
+  cmake: sensu/cmake@1.0.0
 
 jobs:
   
@@ -11,6 +12,7 @@ jobs:
       size: "medium"
     steps:
       - checkout
+      - cmake/install
       - run: cmake
 
 workflows:
