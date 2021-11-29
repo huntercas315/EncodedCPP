@@ -11,9 +11,7 @@ jobs:
       size: "medium"
     steps:
       - checkout
-      - run: choco install cmake -y
-      - run: $env:Path+=";$Env:ProgramFiles\CMake\bin"
-      - run: ProgramFiles\CMake\bin\cmake
+      - run: make
 
 workflows:
   my-workflow:
