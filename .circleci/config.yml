@@ -13,6 +13,7 @@ jobs:
       - checkout
       - run: choco install mingw
       - run: choco install cmake
+      - run: refreshenv
       - run: cmake
 
 workflows:
