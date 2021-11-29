@@ -1,9 +1,9 @@
 #include <iostream>
 #include <random>
 #include <fstream>
-#include <unistd.h>
 #include <iomanip>
-#include "json.hpp"
+#include <string>
+#include "headers/json.hpp"
 
 using namespace std;
 using json = nlohmann::json;
@@ -88,7 +88,11 @@ public:
 bool osCheck(){
 #ifdef _WIN32
 	return true;
-#elif __APPLE__ || __linux__
+#elifdef __APPLE__
+	return false;
+#elifdef __LINUX__
+	return false;
+#else
 	return false;
 #endif
 }
@@ -98,9 +102,9 @@ public:
 	char legend[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	string cwd;
 	string legendName;
+	string storagePath;
 	json legendData;
 	bool weenDOS = osCheck();
-	char slash = (osCheck()) ? '\\' : '/';
 	
 	static bool useOldCode(){
 		char input;
@@ -122,16 +126,13 @@ public:
 	
 	void reuseOldCode(){
 		string codeName;
-		legendDir();
 		
 		cout << "Enter the name of the code: ";
 		cin >> codeName;
 		
-		ifstream legendStorage(cwd + slash + codeName + ".json");
+		ifstream legendStorage(cwd + codeName + ".json");
 		
 		legendStorage >> legendData;
-		
-		cout << legendData["code"] << endl;
 		
 		int i = 0;
 		for (auto z: legendData["code"].get<string>()){
@@ -143,28 +144,37 @@ public:
 	}
 	
 	void legendDir(){
-		if (weenDOS) { /* C:\Users\ (Username)\Desktop\ */
-			cwd = get_current_dir_name();
-			cwd.erase(36);
-			cwd += "\\CodeLegends";
+		if (weenDOS) {
+			cwd = R"(%userprofile%\Documents\CodeLegends\)";
+			/// TODO: Confirm if this works on Windows
 		}
-		else { /* /Home/(Username)/Desktop/ */
-			cwd = get_current_dir_name();
-			cwd.erase(36);
-			cwd += "/CodeLegends";
+		else {
+			int count = 0;
+			cwd = "";
+			for (auto z : string(getenv("PATH"))){
+				if (count != 3){
+					cwd += z;
+					if (z == '/'){
+						++count;
+					}
+				}
+			}
+			cwd += "Documents/CodeLegends/";
 		}
-		//chdir(cwd.c_str());
 	}
 	
 	void jsonLegendStorage(){
-		legendDir(); /// Changes Directory to Legend Storage
+		storagePath = cwd + legendName + string(".json");
+		fstream jsonFile(storagePath.c_str(), fstream::out | fstream::trunc);
 		
-		ofstream jsonFile(cwd + slash + legendName + ".json");
+		if (!(jsonFile.is_open())){
+			cout << "ERROR - File " << legendName << ".json" << " was not created" << endl;
+		}
 		
 		legendData["code"] = legend;
 		
 		jsonFile << setw(4) << legendData << endl;
-		
+			
 		jsonFile.close();
 	}
 	
@@ -178,21 +188,20 @@ public:
 		
 		cout <<endl;
 		
-		if (store == 'N' || store == 'n'){
-			return;
+		if (store == 'Y' || store == 'y') {
+			cout << "Enter a name for this code: "; /// TODO: Later needs to make sure no duplicate names are entered
+			cin >> legendName;
+			cout << endl;
+			
+			jsonLegendStorage();
 		}
-		
-		cout << "Enter a name for this code: "; ///TODO: Later needs to make sure no duplicate names are entered
-		cin >> legendName;
-		cout << endl;
-		
-		jsonLegendStorage();
 	}
 };
 
 int main() {
 	alphabet encode;
 	codeLegendStorage legendStorage;
+	legendStorage.legendDir(); /// Sets up Legend Storage Directories
 	if (codeLegendStorage::useOldCode()){
 		legendStorage.reuseOldCode();
 		for (int i = 0; i <= 26; ++i) {
@@ -211,7 +220,6 @@ int main() {
 	}
 	string message, encodedMessage, decodedMessage;
 	char encodeDecode = 'i';
-	
 	
 	do {
 		message = "";

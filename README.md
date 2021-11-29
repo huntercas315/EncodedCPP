@@ -1,14 +1,22 @@
 # EncodedCPP
+Current CircleCI Status:  
+[![CircleCI](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main.svg?style=svg)](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main)  
 Like my previous encoding project but actually likely finishedable. Also in C++.  
+
 Now with encoding and decoding options.  
-Saving codes has arrived. Create code legends, store, and even reopen previous codes.  
+
+Saving codes has arrived. Create code legends, store, and even reopen previous codes.
+
 Cool right.  
 I know right.  
 Super cool.
 
 JSON functionality uses [nholmann/json](https://github.com/nlohmann/json)  
 
-Unfortunately Windows is not currently supported, the program has only been tested inside Clion with Linux. Compatibility *may* be added.
+Linux should be supported, also macOS, probably Windows.  
+Unfortunately only Linux on Ubuntu 21.10 has been tested.  
 
-Current CircleCI Status:  
-[![CircleCI](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main.svg?style=svg)](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main)
+## Instructions to Run
+Compile the program somehow?  
+Run the setUp.sh if on Linux/macOS or setUp.bat if on Windows.  
+Run the program.
