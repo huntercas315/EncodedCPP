@@ -14,8 +14,9 @@ jobs:
       - run: choco install mingw
       - run: choco install cmake
       - run: refreshenv
-      - run: SET PATH=%PATH%;C:\Program Files\CMake\bin
-      - run: C:\Program Files\CMake\bin\cmake
+      - run: SET PATH=%PATH%;"C:\Program Files\CMake\bin"
+      - run: DIR "C:\Program Files\CMake\bin"
+      - run: cmake
 
 workflows:
   my-workflow:
