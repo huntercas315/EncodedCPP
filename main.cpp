@@ -23,7 +23,7 @@ public:
 	void randomInator(char& letter){
 		random_device randInat;
 		
-		uint randLetter;
+		unsigned int randLetter;
 		
 		do {
 			randLetter = (randInat() % 26);
@@ -86,14 +86,10 @@ public:
 };
 
 bool osCheck(){
-#ifdef _WIN32
-	return true;
-#elifdef __APPLE__
-	return false;
-#elifdef __LINUX__
+#ifndef _WIN32
 	return false;
 #else
-	return false;
+	return true;
 #endif
 }
 
@@ -145,8 +141,18 @@ public:
 	
 	void legendDir(){
 		if (weenDOS) {
-			cwd = R"(%userprofile%\Documents\CodeLegends\)";
-			/// TODO: Confirm if this works on Windows
+            cout << "PATH: " << getenv("PATH") << endl;
+            int count = 0;
+            cwd = "";
+            for (auto z : string(getenv("PATH"))){
+                if (count != 3){
+                    cwd += z;
+                    if (z == '\\'){
+                        ++count;
+                    }
+                }
+            }
+            cwd += "Documents\\CodeLegends\\";
 		}
 		else {
 			int count = 0;
