@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run: choco install cmake -y
       - run: $env:Path+=";$Env:ProgramFiles\CMake\bin"
-      - run: cmake
+      - run: ProgramFiles\CMake\bin\cmake
 
 workflows:
   my-workflow:
