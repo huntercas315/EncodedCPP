@@ -15,7 +15,7 @@ jobs:
       - run: choco install cmake
       - run: refreshenv
       - run: SET PATH=%PATH%;"C:\Program Files\CMake\bin"
-      - run: ECHO.Changed PATH is '%PATH%'
+      - run: ECHO. Changed PATH is '%PATH%'
       - run: cmake
 
 workflows:
