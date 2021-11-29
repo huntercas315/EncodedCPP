@@ -13,7 +13,10 @@ Super cool.
 
 JSON functionality uses [nholmann/json](https://github.com/nlohmann/json)  
 
-Unfortunately Windows is not currently supported, the program has only been tested inside Clion with Linux. Compatibility *may* be added.  
-This is currently being worked on in the filesystemUpgrade branch.   
-Main branch should work on Windows if run in CLion.  
-Progress is being made on functionality anywhere, also on multi-platform builds.
+Linux should be supported, also macOS, probably Windows.  
+Unfortunately only Linux on Ubuntu 21.10 has been tested.  
+
+## Instructions to Run
+Compile the program somehow?  
+Run the setUp.sh if on Linux/macOS or setUp.bat if on Windows.  
+Run the program.
