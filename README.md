@@ -1,6 +1,4 @@
 # EncodedCPP
-Current CircleCI Status:  
-[![CircleCI](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main.svg?style=svg)](https://circleci.com/gh/huntercas315/EncodedCPP/tree/main)  
 Like my previous encoding project but actually likely finishedable. Also in C++.  
 
 Now with encoding and decoding options.  
