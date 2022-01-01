@@ -23,7 +23,7 @@ public:
 	void randomInator(char& letter){
 		random_device randInat;
 		
-		uint randLetter;
+		unsigned int randLetter;
 		
 		do {
 			randLetter = (randInat() % 26);
@@ -86,14 +86,10 @@ public:
 };
 
 bool osCheck(){
-#ifdef _WIN32
-	return true;
-#elifdef __APPLE__
-	return false;
-#elifdef __LINUX__
+#ifndef _WIN32
 	return false;
 #else
-	return false;
+	return true;
 #endif
 }
 
