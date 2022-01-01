@@ -141,8 +141,18 @@ public:
 	
 	void legendDir(){
 		if (weenDOS) {
-			cwd = R"(%userprofile%\Documents\CodeLegends\)";
-			/// TODO: Confirm if this works on Windows
+            cout << "PATH: " << getenv("PATH") << endl;
+            int count = 0;
+            cwd = "";
+            for (auto z : string(getenv("PATH"))){
+                if (count != 3){
+                    cwd += z;
+                    if (z == '\\'){
+                        ++count;
+                    }
+                }
+            }
+            cwd += "Documents\\CodeLegends\\";
 		}
 		else {
 			int count = 0;
