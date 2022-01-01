@@ -5,6 +5,12 @@
 #include <string>
 #include "headers/json.hpp"
 
+#ifdef _WIN32
+#define weenDOS true
+#else
+#define weenDOS false
+#endif
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -85,14 +91,6 @@ public:
 	}
 };
 
-bool osCheck(){
-#ifndef _WIN32
-	return false;
-#else
-	return true;
-#endif
-}
-
 class codeLegendStorage{
 public:
 	char legend[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -100,7 +98,6 @@ public:
 	string legendName;
 	string storagePath;
 	json legendData;
-	bool weenDOS = osCheck();
 	
 	static bool useOldCode(){
 		char input;
@@ -140,22 +137,25 @@ public:
 	}
 	
 	void legendDir(){
+		int count = 0;
 		if (weenDOS) {
-            cout << "PATH: " << getenv("PATH") << endl;
-            int count = 0;
             cwd = "";
             for (auto z : string(getenv("PATH"))){
                 if (count != 3){
-                    cwd += z;
                     if (z == '\\'){
                         ++count;
                     }
+	                cwd += z;
                 }
             }
-            cwd += "Documents\\CodeLegends\\";
+            cwd += "Documents/CodeLegends/";
+			for (auto z : cwd){
+				if (z == '\\'){
+					z = '/';
+				}
+			}
 		}
 		else {
-			int count = 0;
 			cwd = "";
 			for (auto z : string(getenv("PATH"))){
 				if (count != 3){
