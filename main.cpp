@@ -11,13 +11,12 @@ int main() {
 	alphabet encode;
 	codeLegendStorage legendStorage;
 	legendStorage.legendDir(); /// Sets up Legend Storage Directories
-	if (codeLegendStorage::useOldCode()){
+	if (codeLegendStorage::useOldCode()) {
 		legendStorage.reuseOldCode();
 		for (int i = 0; i <= 26; ++i) {
 			encode.legend[1][i] = legendStorage.legend[i];
 		}
-	}
-	else {
+	} else {
 		encode.allVariables();
 		
 		/// Moves a copy of the legend into the legendStorage class to turn into JSON data
@@ -36,8 +35,8 @@ int main() {
 		decodedMessage = "";
 		cout << "Would you like to decode or encode? [e/d] ([x] to exit): ";
 		cin >> encodeDecode;
-		while (encodeDecode != 'e' && encodeDecode != 'd' && encodeDecode != 'x'){
-			cout << "\n[e/d] ([x] to exit)\n"<<endl;
+		while (encodeDecode != 'e' && encodeDecode != 'd' && encodeDecode != 'x') {
+			cout << "\n[e/d] ([x] to exit)\n" << endl;
 			cout << "Would you like to decode or encode?: ";
 			cin >> encodeDecode;
 		}

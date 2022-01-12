@@ -4,7 +4,7 @@
 
 #include "codeLegendStorage.hpp"
 
-void codeLegendStorage::reuseOldCode(){
+void codeLegendStorage::reuseOldCode() {
 	std::string codeName;
 	
 	std::cout << "Enter the name of the code: ";
@@ -15,7 +15,7 @@ void codeLegendStorage::reuseOldCode(){
 	legendStorage >> legendData;
 	
 	int i = 0;
-	for (auto z: legendData["code"].get<std::string>()){
+	for (auto z : legendData["code"].get<std::string>()) {
 		legend[i] = z;
 		++i;
 	}
@@ -23,7 +23,7 @@ void codeLegendStorage::reuseOldCode(){
 	legendStorage.close();
 }
 
-void codeLegendStorage::legendDir(){
+void codeLegendStorage::legendDir() {
 	int count = 0;
 #ifdef _WIN32
 	cwd = "";
@@ -43,10 +43,10 @@ void codeLegendStorage::legendDir(){
 	}
 #else
 	cwd = "";
-	for (auto z : std::string(getenv("PATH"))){
-		if (count != 3){
+	for (auto z : std::string(getenv("PATH"))) {
+		if (count != 3) {
 			cwd += z;
-			if (z == '/'){
+			if (z == '/') {
 				++count;
 			}
 		}
@@ -55,11 +55,11 @@ void codeLegendStorage::legendDir(){
 #endif
 }
 
-void codeLegendStorage::jsonLegendStorage(){
+void codeLegendStorage::jsonLegendStorage() {
 	storagePath = cwd + legendName + std::string(".json");
 	std::fstream jsonFile(storagePath.c_str(), std::fstream::out | std::fstream::trunc);
 	
-	if (!(jsonFile.is_open())){
+	if (!(jsonFile.is_open())) {
 		std::cout << "ERROR - File " << legendName << ".json" << " was not created" << std::endl;
 	}
 	
@@ -70,7 +70,7 @@ void codeLegendStorage::jsonLegendStorage(){
 	jsonFile.close();
 }
 
-void codeLegendStorage::storeLegend(){
+void codeLegendStorage::storeLegend() {
 	char store;
 	
 	do {
