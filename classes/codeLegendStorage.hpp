@@ -6,17 +6,10 @@
 #define ENCODEDCPP_CODELEGENDSTORAGE_HPP
 
 #include <iostream>
-#include <random>
 #include <fstream>
 #include <iomanip>
 #include <string>
 #include "../headers/json.hpp"
-
-#ifdef _WIN32
-#define weenDOS true
-#else
-#define weenDOS false
-#endif
 
 using json = nlohmann::json;
 

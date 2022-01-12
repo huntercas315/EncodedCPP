@@ -25,35 +25,34 @@ void codeLegendStorage::reuseOldCode(){
 
 void codeLegendStorage::legendDir(){
 	int count = 0;
-	if (weenDOS) {
-		cwd = "";
-		for (auto z : std::string(getenv("PATH"))){
-			if (count != 3){
-				if (z == '\\'){
-					++count;
-				}
-				cwd += z;
-			}
-		}
-		cwd += "Documents/CodeLegends/";
-		for (auto z : cwd){
+#ifdef _WIN32
+	cwd = "";
+	for (auto z : std::string(getenv("PATH"))){
+		if (count != 3){
 			if (z == '\\'){
-				z = '/';
+				++count;
+			}
+			cwd += z;
+		}
+	}
+	cwd += "Documents/CodeLegends/";
+	for (auto z : cwd){
+		if (z == '\\'){
+			z = '/';
+		}
+	}
+#else
+	cwd = "";
+	for (auto z : std::string(getenv("PATH"))){
+		if (count != 3){
+			cwd += z;
+			if (z == '/'){
+				++count;
 			}
 		}
 	}
-	else {
-		cwd = "";
-		for (auto z : std::string(getenv("PATH"))){
-			if (count != 3){
-				cwd += z;
-				if (z == '/'){
-					++count;
-				}
-			}
-		}
-		cwd += "Documents/CodeLegends/";
-	}
+	cwd += "Documents/CodeLegends/";
+#endif
 }
 
 void codeLegendStorage::jsonLegendStorage(){
