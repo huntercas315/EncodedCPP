@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <string>
 #include "headers/json.hpp"
+#include "classes/alphabet.hpp"
 
 #ifdef _WIN32
 #define weenDOS true
@@ -14,6 +15,7 @@
 using namespace std;
 using json = nlohmann::json;
 
+/*
 class alphabet{
 public:
 	char baseAlphabet[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -90,6 +92,7 @@ public:
 		cout << "\nDecoded message is "<<decodedMessage<<endl;
 	}
 };
+*/
 
 class codeLegendStorage{
 public:
