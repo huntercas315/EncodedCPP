@@ -12,7 +12,7 @@ Super cool.
 JSON functionality uses [nholmann/json](https://github.com/nlohmann/json)  
 
 Linux should be supported, also macOS, probably Windows.  
-Unfortunately only Linux on Ubuntu 21.10 has been tested.  
+Unfortunately only Ubuntu 21.10 has been tested.  
 
 ## Instructions to Run
 Compile the program somehow?  
