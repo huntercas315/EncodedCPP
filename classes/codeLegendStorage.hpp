@@ -1,5 +1,5 @@
 //
-// Created by cason on 2022-01-11.
+// Created by huntercas315 on 2022-01-11.
 //
 
 #ifndef ENCODEDCPP_CODELEGENDSTORAGE_HPP

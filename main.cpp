@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 int main() {
 	alphabet encode;
 	codeLegendStorage legendStorage;
